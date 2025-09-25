@@ -1,18 +1,28 @@
 import { NextResponse } from 'next/server';
-import { searchGames } from '@/lib/database';
+import { githubDb } from '@/lib/githubDb';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q') || '';
+    const category = searchParams.get('category') || '';
     
-    const results = searchGames({
+    const result = await githubDb.searchGames({
       search: query,
+      category: category || undefined,
       limit: 50
     });
     
-    return NextResponse.json(results.games);
+    return NextResponse.json({
+      games: result.games,
+      totalCount: result.totalCount
+    });
   } catch (error) {
-    return NextResponse.json({ error: 'Search failed' }, { status: 500 });
+    console.error('Search error:', error);
+    return NextResponse.json({ 
+      games: [], 
+      totalCount: 0,
+      error: 'Failed to search games' 
+    }, { status: 500 });
   }
 }
