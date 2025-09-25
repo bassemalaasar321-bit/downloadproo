@@ -11,9 +11,21 @@
       "id": 3,
       "views": 57,
       "createdAt": "2025-09-25T09:49:43.510Z"
+    },
+    {
+      "title": "Freedom Fighters",
+      "description": "في عالم بديل، يقوم الاتحاد السوفيتي بغزو الولايات المتحدة واحتلال مدينة نيويورك.\nأنت تلعب بشخصية كريستوفر ستون، وهو سبّاك عادي يجد نفسه فجأة مجبرًا على القتال بعد أن يخطف السوفييت أخاه ويحتلون مدينته.",
+      "imageUrl": "https://i.postimg.cc/5y66nQJm/image.jpg",
+      "downloadLink": "https://www.mediafire.com/file/i63kf8x150kpux5/Freedom-Fighters.rar/file",
+      "category": "CLASSIC",
+      "platforms": "Windows / ps2/Gamecupe/xbox",
+      "systemReqs": "نظام التشغيل: Windows 98 / ME / 2000 / XP\n\nالمعالج: Intel Pentium III بسرعة 733 MHz أو مكافئ\n\nالذاكرة (RAM): ‎128 MB\n\nكرت الشاشة: بطاقة 32 MB متوافقة مع DirectX 8.1 (مثل GeForce 2 أو ATI Radeon)\n\nالمساحة التخزينية: 650 MB فارغة على القرص الصلب\n\nالصوت: بطاقة صوت متوافقة مع DirectX\n\nالموصى به (Recommended)\n\nنظام التشغيل: Windows XP\n\nالمعالج: Intel Pentium 4 بسرعة 1.5 GHz أو أعلى\n\nالذاكرة (RAM): ‎256 MB\n\nكرت الشاشة: بطاقة 64 MB أو أعلى (GeForce 3 / ATI Radeon 8500 أو أفضل)\n\nالمساحة التخزينية: 650 MB فارغة\n\nالصوت: بطاقة صوت متوافقة مع DirectX",
+      "id": 4,
+      "views": 0,
+      "createdAt": "2025-09-25T21:19:00.383Z"
     }
   ],
   "startId": 1,
   "endId": 200,
-  "count": 1
+  "count": 2
 }
