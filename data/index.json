@@ -1,7 +1,7 @@
 {
-  "totalGames": 0,
-  "filesCount": 0,
-  "lastFileNumber": 0,
-  "nextId": 1,
+  "totalGames": 1,
+  "filesCount": 1,
+  "lastFileNumber": 1,
+  "nextId": 2,
   "gamesPerFile": 200
 }
