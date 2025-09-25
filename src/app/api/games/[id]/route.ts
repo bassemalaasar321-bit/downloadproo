@@ -38,8 +38,13 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid game ID' }, { status: 400 });
     }
     
-    // TODO: Implement updateGame in githubDb
-    return NextResponse.json({ error: 'Update not implemented yet' }, { status: 501 });
+    const updatedGame = await githubDb.updateGame(gameId, updates);
+    
+    if (!updatedGame) {
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    }
+    
+    return NextResponse.json(updatedGame);
     
     if (!updatedGame) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
@@ -63,8 +68,13 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid game ID' }, { status: 400 });
     }
     
-    // TODO: Implement deleteGame in githubDb
-    return NextResponse.json({ error: 'Delete not implemented yet' }, { status: 501 });
+    const deleted = await githubDb.deleteGame(gameId);
+    
+    if (!deleted) {
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    }
+    
+    return NextResponse.json({ success: true });
     
     if (!deleted) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });

@@ -236,6 +236,46 @@ class GitHubDB {
       .sort((a, b) => (b.views || 0) - (a.views || 0))
       .slice(0, limit);
   }
+
+  async updateGame(id: number, updates: Partial<Game>): Promise<Game | null> {
+    const index = await this.getIndex();
+    
+    for (let i = 1; i <= (index.lastFileNumber || 1); i++) {
+      const gameFile = await this.getGameFile(i);
+      const gameIndex = gameFile.games.findIndex(g => g.id === id);
+      
+      if (gameIndex !== -1) {
+        gameFile.games[gameIndex] = { ...gameFile.games[gameIndex], ...updates };
+        await this.saveGameFile(i, gameFile);
+        return gameFile.games[gameIndex];
+      }
+    }
+    
+    return null;
+  }
+
+  async deleteGame(id: number): Promise<boolean> {
+    const index = await this.getIndex();
+    
+    for (let i = 1; i <= (index.lastFileNumber || 1); i++) {
+      const gameFile = await this.getGameFile(i);
+      const gameIndex = gameFile.games.findIndex(g => g.id === id);
+      
+      if (gameIndex !== -1) {
+        gameFile.games.splice(gameIndex, 1);
+        gameFile.count = gameFile.games.length;
+        await this.saveGameFile(i, gameFile);
+        
+        // تحديث العداد الإجمالي
+        index.totalGames--;
+        await this.updateIndex(index);
+        
+        return true;
+      }
+    }
+    
+    return false;
+  }
 }
 
 export const githubDb = new GitHubDB();
