@@ -1,6 +1,20 @@
 {
-  "games": [],
+  "games": [
+    {
+      "title": "ytjytjtyjyt",
+      "description": "ytjytjyytj",
+      "imageUrl": "jytjytjyjyt",
+      "downloadLink": "jytjytjytj",
+      "category": "ACTION",
+      "platforms": "jytytjytjyt",
+      "systemReqs": "jytjytjytj",
+      "gameSpecs": "ytjytjtyj",
+      "id": 1,
+      "views": 0,
+      "createdAt": "2025-09-25T09:08:35.358Z"
+    }
+  ],
   "startId": 1,
   "endId": 200,
-  "count": 0
+  "count": 1
 }
