@@ -5,7 +5,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const resolvedParams = await params;
   
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/games/${resolvedParams.id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://downloadproo.vercel.app'}/api/games/${resolvedParams.id}`, {
       cache: 'no-store'
     });
     const game = await response.json();
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       openGraph: {
         type: 'article',
         locale: 'ar_SA',
-        url: `http://localhost:3000/game/${resolvedParams.id}`,
+        url: `https://downloadproo.vercel.app/game/${resolvedParams.id}`,
         siteName: 'تحميل العاب برو',
         title: `تحميل ${game.title} - ${categoryName}`,
         description: `حمل لعبة ${game.title} مجاناً. ${game.description.substring(0, 150)}`,
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         images: [game.imageUrl]
       },
       alternates: {
-        canonical: `http://localhost:3000/game/${resolvedParams.id}`
+        canonical: `https://downloadproo.vercel.app/game/${resolvedParams.id}`
       }
     };
   } catch (error) {
