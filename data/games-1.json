@@ -88,9 +88,21 @@
       "id": 13,
       "views": 2,
       "createdAt": "2025-09-28T15:01:51.550Z"
+    },
+    {
+      "title": "تحميل برنامج PCSX2 تشغيل بلاي ستيشن 2 على الكمبيوتر",
+      "description": "المقدمة: يُعتبر PCSX2 واحدًا من أفضل محاكيات PlayStation 2 المتاحة حاليًا لأجهزة الكمبيوتر الشخصي يسمح PCSX2 للمستخدمين بتشغيل ألعاب PS2 على أجهزتهم بسلاسة وبدقة عالية مما يوفر تجربة لعب ممتعة وواقعية تحميل العاب بلاي ستيشن 2",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWMFRaMTPTtH-4rb-nxDaY2U-t70nadNlgqBRJPKZjZTZ0aaavXNYLyMmJHDz3zPZLgtblQ1c4n2Bo5psbg2q9G1oZ3-qCziSwsd-Viy15q0GPU4DofOwSOPoyDYScyYMfgcc-Yz07TED4Rjhe26MqOhXfiuYfK4GLAdV8AUTyD0tlK-x-LRBfns8g-FCx/s600/%D8%AA%D8%AD%D9%85%D9%8A%D9%84%20%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%AA%D8%B4%D8%BA%D9%8A%D9%84%20%D8%A8%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%D8%B4%D9%86%202%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D9%83%D9%85%D8%A8%D9%8A%D9%88%D8%AA%D8%B1%20%D8%A7%D8%AE%D8%B1%20%D8%A7%D8%B5%D8%AF%D8%A7%D8%B1%202024.webp",
+      "downloadLink": "https://www.mediafire.com/file/ljbctdtp1q85evj/برنامج+تشغيل+ألعاب+بلاي+ستيشن+2+على+الكمبيوتر+احدث+اصدار.rar/file",
+      "category": "ACTION",
+      "platforms": "windows",
+      "systemReqs": "معالج: يفضل أن يكون معالج ثنائي النواة أو أكثر بسرعة لا تقل عن 3.2 جيجا هرتز.\nذاكرة الوصول العشوائي (RAM): يُفضل أن تكون 2 غيغابايت أو أكثر.\nبطاقة الرسومات: يجب أن تكون بطاقة رسومات متوسطة إلى قوية مع دعم DirectX 11 أو أحدث.\nمساحة التخزين: مساحة تخزين كافية لتثبيت برنامج PCSX2 والألعاب عادةً ما تحتاج إلى عدة جيجابايت.",
+      "id": 14,
+      "views": 0,
+      "createdAt": "2025-09-28T15:07:58.928Z"
     }
   ],
   "startId": 1,
   "endId": 200,
-  "count": 7
+  "count": 8
 }
