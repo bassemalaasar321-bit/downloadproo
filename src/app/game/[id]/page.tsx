@@ -25,7 +25,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       LIGHT: 'ألعاب خفيفة',
       HORROR: 'ألعاب رعب',
       STRATEGY: 'ألعاب استراتيجية',
-      CLASSIC: 'ألعاب قديمة'
+      CLASSIC: 'ألعاب قديمة',
+      PS1_PORTED: 'بلايستيشن 1 متحولة',
+      PS2_PORTED: 'بلايستيشن 2 متحولة',
+      PROGRAMS: 'البرامج'
     };
     
     const categoryName = categoryNames[game.category] || 'ألعاب';

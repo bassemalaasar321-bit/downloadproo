@@ -28,12 +28,25 @@ interface Index {
 }
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_OWNER = process.env.GITHUB_OWNER || 'kaianime99999-prog';
-const GITHUB_REPO = process.env.GITHUB_REPO || 'download_pro_games';
+const GITHUB_OWNER = process.env.GITHUB_OWNER || 'bassemalaasar321-bit';
+const GITHUB_REPO = process.env.GITHUB_REPO || 'downloadproo';
 const GAMES_PER_FILE = 200;
 
 class GitHubDB {
+  private cache = new Map<string, { data: any; timestamp: number }>();
+  private gamesCache: Game[] | null = null;
+  private gamesCacheTime = 0;
+  private CACHE_DURATION = 120000; // دقيقتين
+  private GAMES_CACHE_DURATION = 600000; // 10 دقائق للألعاب
+
   private async githubRequest(path: string, method = 'GET', data?: any) {
+    // تحقق من الcache للGET requests
+    if (method === 'GET') {
+      const cached = this.cache.get(path);
+      if (cached && Date.now() - cached.timestamp < this.CACHE_DURATION) {
+        return cached.data;
+      }
+    }
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
     
     const options: RequestInit = {
@@ -49,13 +62,25 @@ class GitHubDB {
       options.body = JSON.stringify(data);
     }
 
-    const response = await fetch(url, options);
+    // إضافة timeout لتجنب البطء الزائد
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 ثواني
+    
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timeoutId);
     
     if (!response.ok && response.status !== 404) {
       throw new Error(`GitHub API error: ${response.status}`);
     }
     
-    return response.status === 404 ? null : await response.json();
+    const result = response.status === 404 ? null : await response.json();
+    
+    // حفظ في cache للGET requests
+    if (method === 'GET' && result) {
+      this.cache.set(path, { data: result, timestamp: Date.now() });
+    }
+    
+    return result;
   }
 
   private async readFile(path: string): Promise<any> {
@@ -124,6 +149,35 @@ class GitHubDB {
   async saveGameFile(fileNumber: number, gameFile: GameFile): Promise<void> {
     const current = await this.githubRequest(`data/games-${fileNumber}.json`);
     await this.writeFile(`data/games-${fileNumber}.json`, gameFile, current?.sha);
+    // مسح cache الألعاب عند التحديث
+    this.gamesCache = null;
+  }
+
+  private async getAllGames(): Promise<Game[]> {
+    // تحقق من cache الألعاب
+    if (this.gamesCache && Date.now() - this.gamesCacheTime < this.GAMES_CACHE_DURATION) {
+      return this.gamesCache;
+    }
+
+    const index = await this.getIndex();
+    let allGames: Game[] = [];
+    
+    // جلب متوازي محسن
+    const filePromises = [];
+    for (let i = 1; i <= (index.lastFileNumber || 1); i++) {
+      filePromises.push(this.getGameFile(i));
+    }
+    
+    const gameFiles = await Promise.all(filePromises);
+    for (const gameFile of gameFiles) {
+      allGames = allGames.concat(gameFile.games);
+    }
+    
+    // حفظ في cache
+    this.gamesCache = allGames;
+    this.gamesCacheTime = Date.now();
+    
+    return allGames;
   }
 
   async addGame(gameData: Omit<Game, 'id' | 'views' | 'createdAt'>): Promise<Game> {
@@ -166,25 +220,54 @@ class GitHubDB {
     const { search, category, limit = 12, page = 1 } = options;
     const index = await this.getIndex();
     
-    let allGames: Game[] = [];
-    
-    for (let i = 1; i <= (index.lastFileNumber || 1); i++) {
-      const gameFile = await this.getGameFile(i);
-      allGames = allGames.concat(gameFile.games);
+    // إذا لم يكن هناك بحث أو فلترة، جلب ملف واحد فقط
+    if (!search && !category) {
+      // حساب رقم الملف بناءً على الصفحة
+      const startGame = (page - 1) * limit + 1;
+      const fileNumber = Math.ceil(startGame / GAMES_PER_FILE);
+      
+      try {
+        const gameFile = await this.getGameFile(fileNumber);
+        
+        // ترتيب الألعاب في الملف
+        const sortedGames = [...gameFile.games].sort((a, b) => 
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        
+        // حساب الفهرس داخل الملف
+        const indexInFile = (startGame - 1) % GAMES_PER_FILE;
+        const games = sortedGames.slice(indexInFile, indexInFile + limit);
+        
+        return {
+          games,
+          totalCount: index.totalGames,
+          totalPages: Math.ceil(index.totalGames / limit)
+        };
+      } catch (error) {
+        console.error('Error fetching games:', error);
+        return { games: [], totalCount: 0, totalPages: 0 };
+      }
     }
+    
+    // إذا كان هناك بحث أو فلترة، استخدم cache محسن
+    const allGames = await this.getAllGames();
     
     let filteredGames = allGames;
     
     if (search) {
-      filteredGames = filteredGames.filter(game =>
-        game.title.toLowerCase().includes(search.toLowerCase()) ||
-        game.description.toLowerCase().includes(search.toLowerCase())
-      );
+      const searchLower = search.toLowerCase();
+      filteredGames = filteredGames.filter(game => {
+        const titleLower = game.title.toLowerCase();
+        const descLower = game.description.toLowerCase();
+        return titleLower.includes(searchLower) || descLower.includes(searchLower);
+      });
     }
     
-    if (category) {
+    if (category && category.trim() !== '') {
       filteredGames = filteredGames.filter(game => game.category === category);
     }
+    
+    filteredGames.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     
     const totalCount = filteredGames.length;
     const totalPages = Math.ceil(totalCount / limit);
@@ -229,12 +312,21 @@ class GitHubDB {
     
     for (let i = 1; i <= (index.lastFileNumber || 1); i++) {
       const gameFile = await this.getGameFile(i);
-      allGames = allGames.concat(gameFile.games);
+      if (gameFile && gameFile.games) {
+        allGames = allGames.concat(gameFile.games);
+      }
     }
     
-    return allGames
+    console.log('All games for trending:', allGames.length); // للتشخيص
+    
+    const sortedGames = allGames
+      .filter(game => game && typeof game.views === 'number')
       .sort((a, b) => (b.views || 0) - (a.views || 0))
       .slice(0, limit);
+      
+    console.log('Sorted trending games:', sortedGames); // للتشخيص
+    
+    return sortedGames;
   }
 
   async updateGame(id: number, updates: Partial<Game>): Promise<Game | null> {

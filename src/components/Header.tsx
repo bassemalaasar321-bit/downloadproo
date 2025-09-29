@@ -10,7 +10,10 @@ const categories = [
   { name: 'ألعاب حرب', value: 'WAR', icon: '💣', color: 'from-gray-500 to-slate-500' },
   { name: 'ألعاب استراتيجية', value: 'STRATEGY', icon: '♟️', color: 'from-indigo-500 to-violet-500' },
   { name: 'ألعاب سيارات', value: 'CARS', icon: '🏎️', color: 'from-orange-500 to-red-500' },
-  { name: 'ألعاب قديمة', value: 'CLASSIC', icon: '🕹️', color: 'from-teal-500 to-cyan-500' }
+  { name: 'ألعاب قديمة', value: 'CLASSIC', icon: '🕹️', color: 'from-teal-500 to-cyan-500' },
+  { name: 'بلايستيشن 1 متحولة', value: 'PS1_PORTED', icon: '🎮', color: 'from-pink-500 to-rose-500' },
+  { name: 'بلايستيشن 2 متحولة', value: 'PS2_PORTED', icon: '🕹️', color: 'from-violet-500 to-purple-500' },
+  { name: 'البرامج', value: 'PROGRAMS', icon: '💻', color: 'from-emerald-500 to-teal-500' }
 ];
 
 interface HeaderProps {
@@ -23,7 +26,8 @@ export default function Header({ onCategoryChange, onSearch }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white border-b border-gray-800">
+    <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white relative">
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-gray-900 to-transparent pointer-events-none z-10"></div>
       <div className="container mx-auto px-4 py-8">
         
         {/* Gaming Categories Grid */}
@@ -106,8 +110,6 @@ export default function Header({ onCategoryChange, onSearch }: HeaderProps) {
             </nav>
           </>
         )}
-
-
       </div>
     </header>
   );

@@ -23,6 +23,8 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [allGames, setAllGames] = useState<Game[]>([]);
+  const [loading, setLoading] = useState(false);
   const gamesPerPage = 12;
 
   useEffect(() => {
@@ -38,7 +40,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (searchQuery || selectedCategory) {
+    if (selectedCategory === 'FAVORITES') {
+      showFavorites();
+    } else {
       fetchGames();
     }
   }, [currentPage, selectedCategory, searchQuery]);
@@ -47,10 +51,11 @@ export default function Home() {
 
   const fetchGames = async () => {
     try {
+      setLoading(true);
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: gamesPerPage.toString(),
-        ...(selectedCategory && { category: selectedCategory }),
+        ...(selectedCategory && selectedCategory !== 'FAVORITES' && { category: selectedCategory }),
         ...(searchQuery && { search: searchQuery })
       });
       
@@ -58,15 +63,44 @@ export default function Home() {
       const data = await response.json();
       
       setFilteredGames(data.games || []);
+      setAllGames(data.games || []);
       setTotalPages(data.totalPages || 1);
     } catch (error) {
       console.error('Error fetching games:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleCategoryChange = (category: string) => {
+  const showFavorites = () => {
+    if (typeof window === 'undefined') return;
+    
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const favoriteGames = allGames.filter(game => favorites.includes(game.id));
+    
+    setFilteredGames(favoriteGames);
+    setTotalPages(Math.ceil(favoriteGames.length / gamesPerPage));
+    setCurrentPage(1);
+  };
+
+  const handleCategoryChange = async (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+    setSearchQuery('');
+    
+    if (category === 'FAVORITES') {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/games?limit=1000');
+        const data = await response.json();
+        setAllGames(data.games || []);
+        showFavorites();
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   const handleSearch = (query: string) => {
@@ -151,10 +185,29 @@ export default function Home() {
         onSearch={handleSearch}
       />
       
+      {/* Favorites Button - Outside Categories Section */}
+      <div className="bg-gray-900 py-6">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center">
+            <button 
+              onClick={() => handleCategoryChange('FAVORITES')}
+              className="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 px-8 py-4 rounded-xl cursor-pointer text-white font-bold neon-glow transition-all hover:scale-105 text-lg"
+            >
+              ❤️ المفضلة
+            </button>
+          </div>
+        </div>
+      </div>
+      
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
           <div className="flex-1 order-2 lg:order-1 min-w-0">
-            {filteredGames.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4 animate-spin">⚙️</div>
+                <p className="text-gray-400 text-lg">جاري تحميل الألعاب...</p>
+              </div>
+            ) : filteredGames.length === 0 ? (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🎮</div>
                 <p className="text-gray-400 text-lg">لا توجد ألعاب متاحة حالياً</p>

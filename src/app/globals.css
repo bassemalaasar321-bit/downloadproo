@@ -57,10 +57,10 @@ body {
 .category-card {
   @apply p-4 rounded-xl text-center cursor-pointer transition-all duration-300;
   position: relative;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
               conic-gradient(from 0deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
-  animation: spinBorder 3s linear infinite;
+  animation: spinBorder 2s linear infinite;
 }
 
 .category-card:hover {
@@ -71,12 +71,22 @@ body {
   0% {
     background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
                 conic-gradient(from 0deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
-    box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
+  }
+  25% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 90deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
+  }
+  50% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 180deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
+  }
+  75% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 270deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
   }
   100% {
     background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
                 conic-gradient(from 360deg, #ff0080, #00e0ff, #39ff14, #ff8000, #8000ff, #ff0080) border-box;
-    box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
   }
 }
 
@@ -127,4 +137,156 @@ body {
                 linear-gradient(45deg, #f97316, #facc15, #f97316, #facc15) border-box;
     box-shadow: 0 0 12px rgba(249, 115, 22, 0.25);
   }
+}
+
+/* Trending Games Glowing Border Animations */
+@keyframes rotating-border-gold {
+  0% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 0deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+  }
+  25% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 90deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.9);
+  }
+  50% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 180deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+    box-shadow: 0 0 25px rgba(217, 119, 6, 1.0);
+  }
+  75% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 270deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.9);
+  }
+  100% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 360deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+  }
+}
+
+@keyframes rotating-border-silver {
+  0% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 0deg, #e5e7eb, #9ca3af, #6b7280, #e5e7eb) border-box;
+    box-shadow: 0 0 15px rgba(229, 231, 235, 0.5), 0 0 30px rgba(229, 231, 235, 0.2);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(156, 163, 175, 0.6), 0 0 40px rgba(156, 163, 175, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(107, 114, 128, 0.7), 0 0 50px rgba(107, 114, 128, 0.4);
+  }
+  75% {
+    box-shadow: 0 0 20px rgba(156, 163, 175, 0.6), 0 0 40px rgba(156, 163, 175, 0.3);
+  }
+  100% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 360deg, #e5e7eb, #9ca3af, #6b7280, #e5e7eb) border-box;
+    box-shadow: 0 0 15px rgba(229, 231, 235, 0.5), 0 0 30px rgba(229, 231, 235, 0.2);
+  }
+}
+
+@keyframes rotating-border-bronze {
+  0% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 0deg, #ea580c, #dc2626, #b91c1c, #ea580c) border-box;
+    box-shadow: 0 0 15px rgba(234, 88, 12, 0.6), 0 0 30px rgba(234, 88, 12, 0.3);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.7), 0 0 40px rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(185, 28, 28, 0.8), 0 0 50px rgba(185, 28, 28, 0.5);
+  }
+  75% {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.7), 0 0 40px rgba(220, 38, 38, 0.4);
+  }
+  100% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 360deg, #ea580c, #dc2626, #b91c1c, #ea580c) border-box;
+    box-shadow: 0 0 15px rgba(234, 88, 12, 0.6), 0 0 30px rgba(234, 88, 12, 0.3);
+  }
+}
+
+@keyframes rotating-border-blue {
+  0% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 0deg, #3b82f6, #1d4ed8, #1e40af, #3b82f6) border-box;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.3);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(29, 78, 216, 0.7), 0 0 40px rgba(29, 78, 216, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(30, 64, 175, 0.8), 0 0 50px rgba(30, 64, 175, 0.5);
+  }
+  75% {
+    box-shadow: 0 0 20px rgba(29, 78, 216, 0.7), 0 0 40px rgba(29, 78, 216, 0.4);
+  }
+  100% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 360deg, #3b82f6, #1d4ed8, #1e40af, #3b82f6) border-box;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes rotating-border-purple {
+  0% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 0deg, #8b5cf6, #7c3aed, #6d28d9, #8b5cf6) border-box;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.3);
+  }
+  25% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.7), 0 0 40px rgba(124, 58, 237, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(109, 40, 217, 0.8), 0 0 50px rgba(109, 40, 217, 0.5);
+  }
+  75% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.7), 0 0 40px rgba(124, 58, 237, 0.4);
+  }
+  100% {
+    background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+                conic-gradient(from 360deg, #8b5cf6, #7c3aed, #6d28d9, #8b5cf6) border-box;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.3);
+  }
+}
+
+.trending-card-gold {
+  border: 3px solid transparent;
+  background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+              conic-gradient(from 0deg, #fbbf24, #f59e0b, #d97706, #fbbf24) border-box;
+  animation: rotating-border-gold 3s linear infinite;
+}
+
+.trending-card-silver {
+  border: 3px solid transparent;
+  background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+              conic-gradient(from 0deg, #e5e7eb, #9ca3af, #6b7280, #e5e7eb) border-box;
+  animation: rotating-border-silver 4s linear infinite;
+}
+
+.trending-card-bronze {
+  border: 3px solid transparent;
+  background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+              conic-gradient(from 0deg, #ea580c, #dc2626, #b91c1c, #ea580c) border-box;
+  animation: rotating-border-bronze 5s linear infinite;
+}
+
+.trending-card-blue {
+  border: 3px solid transparent;
+  background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+              conic-gradient(from 0deg, #3b82f6, #1d4ed8, #1e40af, #3b82f6) border-box;
+  animation: rotating-border-blue 6s linear infinite;
+}
+
+.trending-card-purple {
+  border: 3px solid transparent;
+  background: linear-gradient(145deg, #1A1A1A, #0F0F0F) padding-box,
+              conic-gradient(from 0deg, #8b5cf6, #7c3aed, #6d28d9, #8b5cf6) border-box;
+  animation: rotating-border-purple 7s linear infinite;
 }

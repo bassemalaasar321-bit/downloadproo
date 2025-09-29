@@ -7,7 +7,10 @@ const categories = [
   { name: 'ألعاب خفيفة', value: 'LIGHT', icon: '✨' },
   { name: 'ألعاب رعب', value: 'HORROR', icon: '👻' },
   { name: 'ألعاب استراتيجية', value: 'STRATEGY', icon: '♟️' },
-  { name: 'ألعاب قديمة', value: 'CLASSIC', icon: '🕹️' }
+  { name: 'ألعاب قديمة', value: 'CLASSIC', icon: '🕹️' },
+  { name: 'بلايستيشن 1 متحولة', value: 'PS1_PORTED', icon: '🎮' },
+  { name: 'بلايستيشن 2 متحولة', value: 'PS2_PORTED', icon: '🕹️' },
+  { name: 'البرامج', value: 'PROGRAMS', icon: '💻' }
 ];
 
 interface SidebarProps {
@@ -17,7 +20,7 @@ interface SidebarProps {
 
 export default function Sidebar({ onCategoryChange, selectedCategory }: SidebarProps) {
   return (
-    <aside className="hidden lg:block bg-gradient-to-b from-gray-900 to-gray-800 rounded-2xl shadow-2xl p-6 h-fit border border-gray-700">
+    <aside className="hidden lg:block categories-rainbow rounded-2xl shadow-2xl p-6 h-fit">
       <h3 className="text-xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 flex items-center gap-2">
         📁 أقسام الموقع
       </h3>
@@ -35,6 +38,20 @@ export default function Sidebar({ onCategoryChange, selectedCategory }: SidebarP
             <span className="font-medium">جميع الألعاب</span>
           </button>
         </li>
+        <li>
+          <button
+            onClick={() => onCategoryChange('FAVORITES')}
+            className={`flex items-center gap-3 w-full text-right py-3 px-4 rounded-xl transition-all duration-300 cursor-pointer group ${
+              selectedCategory === 'FAVORITES' 
+                ? 'bg-gradient-to-r from-red-600 to-pink-600 text-white neon-glow' 
+                : 'hover:bg-gray-700 text-gray-300 hover:text-white'
+            }`}
+          >
+            <span className="text-xl group-hover:scale-110 transition-transform">❤️</span>
+            <span className="font-medium">المفضلة</span>
+          </button>
+        </li>
+
         {categories.map((category) => (
           <li key={category.value}>
             <button
